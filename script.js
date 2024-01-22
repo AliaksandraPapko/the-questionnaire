@@ -16,6 +16,8 @@ form.addEventListener("submit", (event) => {
         const email = addEmail.value;
         const isOn = checkbox.checked;
 
+        toggleLoader();
+
 
         const { status, error } = await fetch(`https://polinashneider.space/user`, {
             method: `POST`,
@@ -33,6 +35,7 @@ form.addEventListener("submit", (event) => {
             }),
         })
 
+        toggleLoader();
 
         if (status === 200) {
             onSuccess(event.target)
@@ -40,16 +43,17 @@ form.addEventListener("submit", (event) => {
             onError(error)
         }
     }
-    button.addEventListener('click', sendData)
+
+    button.addEventListener('click', sendData);
 })
 
 
 function toggleLoader() {
-    const loader = document.querySelector(`loader`);
+    const loader = document.querySelector(`.loader`);
     loader.classList.toggle('hidden')
 }
 
-function onSuccess(form) {
+function onSuccess() {
     alert('Ваша анкета отправлена');
     form.reset()
 }
